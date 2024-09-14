@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { People } from '../interfaces/people';
 import { Product } from '../interfaces/Product';
+import { CouterComponent } from './component/couter/couter.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CouterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
