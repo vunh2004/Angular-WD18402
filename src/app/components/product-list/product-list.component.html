@@ -13,10 +13,8 @@
       </tr>
     </thead>
     <tbody class="text-gray-600 text-sm">
-      <tr
-        *ngFor="let product of products; let i = index"
-        class="border-b border-gray-300 hover:bg-gray-100"
-      >
+      @for (product of products; track product.id; let i = $index) {
+      <tr class="border-b border-gray-300 hover:bg-gray-100">
         <td class="py-3 px-6 text-left">{{ i + 1 }}</td>
         <td class="py-3 px-6 text-left">
           <img
@@ -31,14 +29,30 @@
         </td>
         <td class="py-3 px-6 text-right">${{ product.price }}</td>
         <td class="py-3 px-6 text-center">{{ product.category }}</td>
-        <td class="py-3 px-6 text-center">
+        <td class="py-3 px-6 text-center flex">
           <button
-            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 mr-1"
+            (click)="onRemoveProduct(product.id)"
           >
             Delete
           </button>
+          <button
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            (click)="setProduct(product)"
+          >
+            Detail
+          </button>
         </td>
       </tr>
+      } @empty {
+      <tr>
+        <td class="py-3 px-6 text-left">Không có sản phẩm nào</td>
+      </tr>
+      }
     </tbody>
   </table>
+
+  @if (selectedProduct) {
+  <app-product-detail [product]="selectedProduct"></app-product-detail>
+  }
 </div>
