@@ -17,5 +17,6 @@ export class ProductAddComponent {
   onHandleAdd(form: NgForm) {
     if (!form.valid) return;
     console.log(form.value);
+    this.onAdd.emit(form.value);
   }
 }

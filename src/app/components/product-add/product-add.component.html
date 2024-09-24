@@ -1,6 +1,6 @@
 <form (ngSubmit)="onHandleAdd(formAdd)" #formAdd="ngForm">
   <div class="form-group">
-    <label>Name</label>
+    <label>Tên sản phẩm</label>
     <input
       type="text"
       class="form-control"
@@ -9,45 +9,88 @@
       required
       minlength="6"
     />
+    <!-- Kiểm tra lỗi -->
     <div
-      *ngIf="
-        formAdd.controls['name'].invalid &&
-        (formAdd.controls['name'].dirty || formAdd.controls['name'].touched)
-      "
+      *ngIf="formAdd?.controls?.['name']?.invalid && (formAdd?.controls?.['name']?.dirty || formAdd?.controls?.['name']?.touched)"
     >
-      <div *ngIf="formAdd.controls['name'].errors?.['required']">
-        Bắt buộc nhập
+      <div *ngIf="formAdd?.controls?.['name']?.errors?.['required']">
+        Tên sản phẩm là bắt buộc.
       </div>
-      <div *ngIf="formAdd.controls['name'].errors?.['minlength']">
-        6 ký tự trở lên
+      <div *ngIf="formAdd?.controls?.['name']?.errors?.['minlength']">
+        Tên sản phẩm phải có ít nhất 6 ký tự.
       </div>
     </div>
   </div>
+
   <div class="form-group">
-    <label>Price</label>
-    <input type="number" class="form-control" name="price" ngModel />
+    <label>Giá</label>
+    <input
+      type="number"
+      class="form-control"
+      name="price"
+      ngModel
+      required
+      min="0"
+    />
+    <div
+      *ngIf="formAdd?.controls?.['price']?.invalid && (formAdd?.controls?.['price']?.dirty || formAdd?.controls?.['price']?.touched)"
+    >
+      <div *ngIf="formAdd?.controls?.['price']?.errors?.['required']">
+        Giá sản phẩm là bắt buộc.
+      </div>
+      <div *ngIf="formAdd?.controls?.['price']?.errors?.['min']">
+        Giá sản phẩm phải là số dương.
+      </div>
+    </div>
   </div>
+
   <div class="form-group">
     <label>Ảnh sản phẩm</label>
-    <input type="text" class="form-control" name="imageUrl" ngModel />
+    <input type="text" class="form-control" name="imageUrl" ngModel required />
+    <div
+      *ngIf="formAdd?.controls?.['imageUrl']?.invalid && (formAdd?.controls?.['imageUrl']?.dirty || formAdd?.controls?.['imageUrl']?.touched)"
+    >
+      <div *ngIf="formAdd?.controls?.['imageUrl']?.errors?.['required']">
+        Ảnh sản phẩm là bắt buộc.
+      </div>
+    </div>
   </div>
+
   <div class="form-group">
     <label>Danh mục</label>
-    <select name="category" ngModel>
+    <select name="category" ngModel required>
+      <option value="">Chọn danh mục</option>
       <option value="1">Danh mục A</option>
       <option value="2">Danh mục B</option>
     </select>
+    <div
+      *ngIf="formAdd?.controls?.['category']?.invalid && (formAdd?.controls?.['category']?.dirty || formAdd?.controls?.['category']?.touched)"
+    >
+      <div *ngIf="formAdd?.controls?.['category']?.errors?.['required']">
+        Vui lòng chọn danh mục.
+      </div>
+    </div>
   </div>
+
   <div class="form-group">
     <label>Loại sản phẩm</label>
-    <input type="radio" name="type" value="Loại 1" ngModel />
-    Loại 1
-    <input type="radio" name="type" value="Loại 2" ngModel />
-    Loại 2<br />
+    <input type="radio" name="type" value="Loại 1" ngModel required /> Loại 1
+    <input type="radio" name="type" value="Loại 2" ngModel required /> Loại 2
+    <div
+      *ngIf="formAdd?.controls?.['type']?.invalid && (formAdd?.controls?.['type']?.dirty || formAdd?.controls?.['type']?.touched)"
+    >
+      <div *ngIf="formAdd?.controls?.['type']?.errors?.['required']">
+        Vui lòng chọn loại sản phẩm.
+      </div>
+    </div>
   </div>
+
   <div class="form-group">
     <label>Tình trạng:</label>
     <input type="checkbox" name="available" ngModel />
   </div>
-  <button type="submit" class="btn btn-primary">Thêm mới</button>
+
+  <button type="submit" class="btn btn-primary" [disabled]="formAdd?.invalid">
+    Thêm mới
+  </button>
 </form>
